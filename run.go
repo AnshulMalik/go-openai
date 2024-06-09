@@ -475,7 +475,7 @@ func (c *Client) CreateRunStreaming(ctx context.Context, threadID string, reques
 		http.MethodPost,
 		c.fullURL(urlSuffix),
 		withBody(r),
-		withBetaAssistantV1(),
+		withBetaAssistantV2(),
 	)
 	if err != nil {
 		return

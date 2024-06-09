@@ -50,6 +50,8 @@ func (stream *streamReader[T]) processLines() (T, error) {
 
 	for {
 		rawLine, readErr := stream.reader.ReadBytes('\n')
+		fmt.Println("rawLine", rawLine, stream.reader.Size())
+
 		if readErr != nil || hasErrorPrefix {
 			respErr := stream.unmarshalError()
 			if respErr != nil {

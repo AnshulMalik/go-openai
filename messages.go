@@ -52,10 +52,10 @@ type ImageFile struct {
 }
 
 type MessageRequest struct {
-	Role     string         `json:"role"`
-	Content  string         `json:"content"`
-	FileIds  []string       `json:"file_ids,omitempty"` //nolint:revive // backwards-compatibility
-	Metadata map[string]any `json:"metadata,omitempty"`
+	Role     string           `json:"role"`
+	Content  []MessageContent `json:"content"`
+	FileIds  []string         `json:"file_ids,omitempty"` //nolint:revive // backwards-compatibility
+	Metadata map[string]any   `json:"metadata,omitempty"`
 }
 
 type MessageFile struct {
@@ -76,7 +76,7 @@ type MessageFilesList struct {
 // CreateMessage creates a new message.
 func (c *Client) CreateMessage(ctx context.Context, threadID string, request MessageRequest) (msg Message, err error) {
 	urlSuffix := fmt.Sprintf("/threads/%s/%s", threadID, messagesSuffix)
-	req, err := c.newRequest(ctx, http.MethodPost, c.fullURL(urlSuffix), withBody(request), withBetaAssistantV1())
+	req, err := c.newRequest(ctx, http.MethodPost, c.fullURL(urlSuffix), withBody(request), withBetaAssistantV2())
 	if err != nil {
 		return
 	}
